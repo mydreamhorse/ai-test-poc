@@ -1,0 +1,16 @@
+Natural Language Test Case:
+Verify that a user can successfully log in with valid credentials and is redirected to the dashboard. The user should then see a welcome message.
+
+Ideal Pytest Script:
+import pytest
+from src.custom_test_api import *
+
+def test_successful_login_and_dashboard_welcome():
+    setup_test_environment()
+    navigate_to_url("https://example.com/login")
+    input_text("username", "valid_user")
+    input_text("password", "valid_pass")
+    click_element("login_submit_button")
+    verify_element_exists("dashboard_title")
+    verify_text("user_greeting", "Hello, valid_user!")
+    teardown_test_environment()

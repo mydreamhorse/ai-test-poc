@@ -1,0 +1,18 @@
+Natural Language Test Case:
+Test that a user attempting to log in with invalid credentials receives an error message and remains on the login page.
+
+Ideal Pytest Script:
+import pytest
+from src.custom_test_api import *
+
+def test_invalid_login_attempt():
+    setup_test_environment()
+    navigate_to_url("https://example.com/login")
+    input_text("username", "invalid_user")
+    input_text("password", "wrong_pass")
+    click_element("login_submit_button")
+    verify_element_exists("error_message_login")
+    verify_text("error_message_login", "Invalid credentials, please try again.")
+    # Assuming the URL doesn't change for an invalid login attempt
+    # verify_current_url("https://example.com/login") # Add if your API supports this
+    teardown_test_environment()
