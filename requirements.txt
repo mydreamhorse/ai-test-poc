@@ -1,0 +1,13 @@
+# Testing dependencies
+pytest>=8.0.0
+pytest-cov>=4.0.0
+
+# Core dependencies (none required for this PoC)
+# Future dependencies might include:
+# dspy-ai
+# openai
+# langchain
+# faiss-cpu
+# chromadb
+# deepeval
+# ragas
