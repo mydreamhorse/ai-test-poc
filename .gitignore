@@ -55,3 +55,12 @@ venv.bak/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Project specific
+generated_tests/
+data_for_rag/

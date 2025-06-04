@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 import src.rag_system as rag_system
 import src.llm_interface as llm_interface
 import src.evaluator as evaluator
@@ -6,6 +7,17 @@ import src.dspy_optimizer as dspy_optimizer # For conceptual demonstration
 
 def main():
     print("--- Starting Proof of Concept (PoC) for AI Test Generation ---")
+
+    # 加载.env文件中的环境变量
+    load_dotenv()
+    
+    # 获取OpenAI API密钥
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        print("Warning: OPENAI_API_KEY not found in environment variables or .env file.")
+        print("Please set your OpenAI API key in .env file:")
+        print("OPENAI_API_KEY=your-api-key")
+        return
 
     # 1. Define a sample natural language test case
     print("\n[Step 1: Sample Natural Language Test Case]")
@@ -109,11 +121,13 @@ def test_invalid_login_attempt():
     print(f"Constructed Prompt for LLM:\n---\n{prompt_for_llm}\n---")
 
     # --- Test Script Generation (using LLM interface) ---
-    print("\n[Step 4: Test Script Generation (Hardcoded LLM Interface)]")
-    # Note: llm_interface.generate_test_script currently returns a hardcoded script
-    # and prints the prompt it receives.
-    generated_script = llm_interface.generate_test_script(prompt=prompt_for_llm)
-    print(f"Generated Script (Hardcoded):\n---\n{generated_script}\n---")
+    print("\n[Step 4: Test Script Generation (Real LLM Interface)]")
+    try:
+        generated_script = llm_interface.generate_test_script(prompt=prompt_for_llm, api_key=api_key)
+        print(f"Generated Script:\n---\n{generated_script}\n---")
+    except Exception as e:
+        print(f"Error generating test script: {str(e)}")
+        return
 
     # --- Save the Generated Script ---
     print("\n[Step 5: Saving Generated Script]")
