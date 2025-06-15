@@ -5,6 +5,7 @@ pytest-cov>=4.0.0
 # Core dependencies
 openai>=1.0.0
 python-dotenv>=1.0.0
+httpx[socks]
 
 # Future dependencies might include:
 # dspy-ai
